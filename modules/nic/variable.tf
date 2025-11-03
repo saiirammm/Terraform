@@ -20,5 +20,8 @@ variable "ip_name" {
 }
 variable "publicip" {
     type = string
+    default = null
   
 }
+
+

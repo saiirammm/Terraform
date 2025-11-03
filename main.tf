@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "> 1.0.4"
+      version = "> 2.0"
     }
   }
 }
@@ -20,32 +20,57 @@ data "azurerm_subnet" "subnet" {
   
 }
 
+
 module "rg2" {
   source = "./modules/resouce"
   rg_name = "test"
-  location = "EastUS"
+  location = "WestEurope "
 }
 
 module  "rg3"{
   source = "./modules/resouce"
   rg_name = "test2"
-  location = "EastUS"
+  location = "WestEurope "
 }
 module "pub" {
+
   source = "./modules/public ip"
+  count = 3
   rg_name = module.rg2.resource_group_name
-  name = "testpubic"
-  location = "WestEurope"
+  name = "testpubic-${count.index}"
+  location = "WestEurope "
   
 }
 module "nic1" {
   source = "./modules/nic"
+  count = 2
   resource_group_name = module.rg2.resource_group_name
-  location = "WestEurope"
-  nic_name =  "f1"
+  location = "WestEurope "
+  nic_name =  "f1-${count.index}"
   subnet_id = data.azurerm_subnet.subnet.id
   ip_name = "ip1"
-  publicip = module.pub.publicipid
+  publicip = module.pub[count.index].publicipid
+  
+}
+module "NSG" {
+  source = "./modules/NSG"
+  count = 3
+  name = "NSG-${count.index}"
+  rg_name = module.rg3.resource_group_name
+  location = "WestEurope "
+  
+}
+
+
+module "ubuntu" {
+  count = 2
+  source = "./modules/vms"
+  name = "Linux-vm-${count.index}"
+  location = "WestEurope "
+  resource_group_name = module.rg3.resource_group_name
+  networkids = [module.nic1[count.index].nicid]
+  vm_size = "Standard_D2s_v3"
   
 
+  
 }
