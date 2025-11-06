@@ -1,3 +1,4 @@
+/*
 output "ip" {
   value = module.nic1[*].private-ip
   
@@ -15,3 +16,6 @@ output "nicip" {
   value = module.nictasks[*].private-ip[*]
   
 }
+*/
+
+

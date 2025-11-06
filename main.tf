@@ -12,7 +12,7 @@ provider "azurerm" {
  subscription_id = "0e9784a1-7ffb-4ad5-824f-2aaa98c41256"
 }
 
-
+/*
 data "azurerm_subnet" "subnet" {
   resource_group_name = "RG-Sairam"
   virtual_network_name = "Sai"
@@ -74,3 +74,42 @@ module "ubuntu" {
 
   
 }
+*/
+data "azurerm_subnet" sub {
+  resource_group_name = "Mahesh_terraform"
+  virtual_network_name = "RHEL-Vnet"
+  name = "snet-westus2-1"
+  
+}
+/*
+module "pubip" {
+  source = "./modules/public ip"
+  name = "ip1"
+  rg_name = data.azurerm_subnet.sub.resource_group_name
+  location = "WestUS2"
+
+}
+module "nic" {
+  source = "./modules/nic"
+  nic_name = "mahesh"
+  resource_group_name = data.azurerm_subnet.sub.resource_group_name
+  subnet_id = data.azurerm_subnet.sub.id
+  location = "WestUS2"
+  ip_name = "test"
+  publicip = module.pubip.publicip
+
+  
+}
+module "red-hat-vm" {
+  source = "./modules/vms"
+  name = "redhat"
+  location = "WestUS2"
+  resource_group_name = data.azurerm_subnet.sub.resource_group_name
+  networkids = module.nic.id
+  vm_size = "Standard_D2s_V3"
+
+  
+}
+*/
+
+

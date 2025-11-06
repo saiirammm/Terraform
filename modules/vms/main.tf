@@ -12,11 +12,18 @@ resource "azurerm_virtual_machine" "main" {
 
   # Uncomment this line to delete the data disks automatically when deleting the VM
   #delete_data_disks_on_termination = true
-
+/*
   storage_image_reference {
-    publisher = "Canonical"
+    publisher = "Redhat"
     offer     = "0001-com-ubuntu-server-jammy"
     sku       = "22_04-lts"
+    version   = "latest"
+  }
+*/
+  storage_image_reference {
+    publisher = "RedHat"
+    offer     = "RHEL"
+    sku       = "9_4"
     version   = "latest"
   }
   storage_os_disk {
@@ -26,9 +33,9 @@ resource "azurerm_virtual_machine" "main" {
     managed_disk_type = "Standard_LRS"
   }
   os_profile {
-    computer_name  = "sai"
-    admin_username = "ram"
-    admin_password = "ram@6281304637"
+    computer_name  = "jaiMahesh"
+    admin_username = "mahesh"
+    admin_password = "linuxguru@123"
   }
   os_profile_linux_config {
     disable_password_authentication = false

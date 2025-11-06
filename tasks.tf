@@ -1,4 +1,4 @@
-data "azurerm_availability_set" "av" {
+/*data "azurerm_availability_set" "av" {
   resource_group_name = "Tasks"
   name = "av-set"
 }
@@ -32,3 +32,4 @@ module "tasks-ubuntu" {
   
 }
 
+*/
