@@ -7,25 +7,39 @@ resource "azurerm_virtual_machine" "main" {
   vm_size               = var.vm_size
 
   availability_set_id = var.availability_set_id
-  # Uncomment this line to delete the OS disk automatically when deleting the VM
+  #Uncomment this line to delete the OS disk automatically when deleting the VM
   #delete_os_disk_on_termination = true
 
   # Uncomment this line to delete the data disks automatically when deleting the VM
   #delete_data_disks_on_termination = true
 /*
-  storage_image_reference {
-    publisher = "Redhat"
+    publisher = "Canonical"
     offer     = "0001-com-ubuntu-server-jammy"
     sku       = "22_04-lts"
     version   = "latest"
   }
 */
-  storage_image_reference {
+  
+  dynamic "storage_image_reference" {
+    for_each = var.image =="ubuntu" ? [1] : [0]
+    content{
+    publisher = "Canonical"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts"
+    version   = "latest"
+    }
+  }
+
+   dynamic "storage_image_reference" {
+    for_each = var.image =="redhat" ? [1] : [0]
+    content{
     publisher = "RedHat"
     offer     = "RHEL"
     sku       = "9_4"
     version   = "latest"
+    }
   }
+
   storage_os_disk {
     name              = var.name
     caching           = "ReadWrite"

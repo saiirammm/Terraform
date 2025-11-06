@@ -20,3 +20,6 @@ variable "availability_set_id" {
     default = null
   
 }
+variable "image" {
+    type = list(string) 
+}
