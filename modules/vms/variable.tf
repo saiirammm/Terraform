@@ -21,5 +21,5 @@ variable "availability_set_id" {
   
 }
 variable "image" {
-    type = list(string) 
+    type = string  
 }

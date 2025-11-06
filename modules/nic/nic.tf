@@ -2,7 +2,7 @@ resource "azurerm_network_interface" "nic" {
   name = var.nic_name
   resource_group_name = var.resource_group_name
   location = var.location
-
+  
   
   accelerated_networking_enabled = true
   ip_configuration {
@@ -11,7 +11,11 @@ resource "azurerm_network_interface" "nic" {
     subnet_id = var.subnet_id
     public_ip_address_id = var.publicip
     
-    }
+  }
   
   
+}
+resource "azurerm_network_interface_security_group_association" "name" {
+  network_interface_id = azurerm_network_interface.nic.id
+  network_security_group_id = var.nsg
 }

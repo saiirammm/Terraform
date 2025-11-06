@@ -18,6 +18,11 @@ variable "ip_name" {
     type = string
   
 }
+
+variable "nsg" {
+    type = string
+  
+}
 variable "publicip" {
     type = string
     default = null
