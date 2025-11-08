@@ -74,7 +74,7 @@ module "ubuntu" {
 
   
 }
-*/
+
 data "azurerm_subnet" sub {
   resource_group_name = "Mahesh_terraform"
   virtual_network_name = "RHEL-Vnet"
