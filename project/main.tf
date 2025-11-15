@@ -111,5 +111,25 @@ module "red-hat-vm" {
   
 }
 */
+module "rg" {
+  source = "../modules/resouce"
+  rg_name = "test-aaks-module"
+  location = "WestUS2"
+  
+}
+
+module "aks" {
+  source = "../modules/AKS"
+  name = "aks-test"
+  location = "WestUS2"
+  resource_group_name = module.rg.resource_group_name 
+}
+
+data "azurerm_virtual_network" "vnet" {
+  name = "vnet-westeurope"
+  resource_group_name = "RG-TEST-01"
+}
+
+
 
 
