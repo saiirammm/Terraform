@@ -15,7 +15,9 @@ resource "azurerm_network_interface" "nic" {
   
   
 }
+
 resource "azurerm_network_interface_security_group_association" "name" {
+  count = length(var.nsgid)
   network_interface_id = azurerm_network_interface.nic.id
-  network_security_group_id = var.nsg
+  network_security_group_id = var.nsgid[count.index]
 }

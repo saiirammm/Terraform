@@ -14,5 +14,6 @@ variable "address_prefixes" {
 variable "subnet-type" {
     type = string
     default = null
+    description = "Private or public By default it is public"
   
 }

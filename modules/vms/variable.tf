@@ -1,25 +1,25 @@
 variable "name" {
-    type = string
-  
+  type = string
+
 }
 variable "location" {
-    type = string
+  type = string
 }
 variable "resource_group_name" {
-    type = string
+  type = string
 }
 variable "networkids" {
   type = list(string)
 }
 variable "vm_size" {
-    type = string
-  
+  type = string
+
 }
 variable "availability_set_id" {
-    type = string
-    default = null
-  
+  type    = string
+  default = null
+
 }
 variable "image" {
-    type = string  
+  type = string
 }

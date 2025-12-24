@@ -117,6 +117,31 @@ module "rg" {
   location = "WestUS2"
   
 }
+module "Vnet" {
+  source        = "../modules/vnet"
+  vnet-name     = "AD-Vnet"
+  rg-name       = module.rg.resource_group_name
+  location      = module.rg.location
+  address_space = ["10.2.0.0/16"]
+  dns           = ["10.2.0.5","10.2.0.6"]
+
+}
+module "subnet1" {
+  source           = "../modules/subnet"
+  sub-name         = "vms"
+  rg-name          = module.rg.resource_group_name
+  vnet-name        = module.rg.location
+  address_prefixes = ["10.2.1.0/24"]
+
+}
+module "subnet2" {
+  source           = "../modules/subnet"
+  sub-name         = "SUb2"
+  rg-name          = module.rg.resource_group_name
+  vnet-name        = module.rg.location
+  address_prefixes = ["10.2.2.0/24"]
+
+}
 
 module "aks" {
   source = "../modules/AKS"
@@ -125,10 +150,7 @@ module "aks" {
   resource_group_name = module.rg.resource_group_name 
 }
 
-data "azurerm_virtual_network" "vnet" {
-  name = "vnet-westeurope"
-  resource_group_name = "RG-TEST-01"
-}
+
 
 
 

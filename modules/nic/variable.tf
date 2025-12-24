@@ -19,8 +19,9 @@ variable "ip_name" {
   
 }
 
-variable "nsg" {
-    type = string
+variable "nsgid" {
+    type = list(string)
+    default = []
   
 }
 variable "publicip" {
